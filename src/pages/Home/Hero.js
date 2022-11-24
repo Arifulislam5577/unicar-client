@@ -2,8 +2,8 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <section className="grid grid-cols-1 gap-0 bg-blue-100 bg-opacity-25 md:grid-cols-2">
-      <div className="flex flex-col items-start justify-center px-4 py-24 lg:px-20">
+    <div className="grid grid-cols-1 gap-0 bg-blue-100 bg-opacity-25 md:grid-cols-2">
+      <div className="flex flex-col items-start justify-center container md:py-24 py-14">
         <span className="mb-3 text-sm rounded px-3 text-white bg-slate-900 badge">
           Pro Car
         </span>
@@ -21,7 +21,7 @@ const Hero = () => {
               required="true"
             />
             <button
-              className="text-white bg-slate-900 hover:bg-slate-800 btn btn-lg px-3 text-sm rounded-r"
+              className="text-white bg-slate-900 hover:bg-slate-800 btn btn-lg px-3 py-3 text-sm rounded-r"
               type="submit"
             >
               Get Started
@@ -41,7 +41,7 @@ const Hero = () => {
           loading="lazy"
         />
       </div>
-    </section>
+    </div>
   );
 };
 

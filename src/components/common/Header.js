@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { MdBarChart } from "react-icons/md";
 const Header = () => {
   return (
     <header className="header py-5 bg-blue-100 bg-opacity-25">
@@ -14,7 +15,7 @@ const Header = () => {
             </p>
           </div>
 
-          <ul className="flex items-center gap-5 text-sm">
+          <ul className="lg:flex items-center gap-5 text-sm hidden">
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -25,11 +26,15 @@ const Header = () => {
               <Link to="/">About Us</Link>
             </li>
             <li>
-              <button className=" bg-slate-900 rounded py-2.5  px-8  text-white text-sm">
+              <button className="bg-slate-900 hover:bg-slate-800 rounded py-2.5  px-8  text-white text-sm">
                 Login
               </button>
             </li>
           </ul>
+
+          <button className="-rotate-90 lg:hidden">
+            <MdBarChart size={32} />
+          </button>
         </div>
       </div>
     </header>
