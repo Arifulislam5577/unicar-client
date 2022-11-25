@@ -9,7 +9,7 @@ const Header = () => {
     setShowMobileNav(false);
   }, [location.pathname]);
   return (
-    <header className="header py-5 bg-blue-100 bg-opacity-25">
+    <header className="header py-5">
       <div className="container">
         <div className="flex items-center justify-between">
           <div className="flex  flex-col">
