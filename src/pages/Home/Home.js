@@ -1,4 +1,5 @@
 import React from "react";
+import AboutUs from "./AboutUs";
 import AdvertisedMent from "./AdvertisedMent";
 import Category from "./Category";
 import Featured from "./Featured";
@@ -11,6 +12,7 @@ const Home = () => {
       <Featured />
       <AdvertisedMent />
       <Category />
+      <AboutUs />
     </section>
   );
 };

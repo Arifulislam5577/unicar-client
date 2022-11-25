@@ -18,7 +18,7 @@ const Hero = () => {
               className="text-slate-900 form-input form-input-lg p-3 focus:outline-none placeholder:text-sm rounded-l"
               type="email"
               placeholder="Enter your email..."
-              required="true"
+              required
             />
             <button
               className="text-white bg-slate-900 hover:bg-slate-800 btn btn-lg px-3 py-3 text-sm rounded-r"

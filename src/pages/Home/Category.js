@@ -1,60 +1,45 @@
 import React from "react";
+import { BsPlusCircle } from "react-icons/bs";
 import { SiTesla, SiBmw, SiNissan } from "react-icons/si";
 import { Link } from "react-router-dom";
 const Category = () => {
   return (
-    <div className="py-5">
+    <div className="py-10 bg-white">
       <div className="container">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <div className="lg:col-span-1 w-full">
-            <div className="py-8 px-5 flex items-center flex-col justify-center text-center bg-white rounded-md">
-              <p className="text-center mb-2">
-                <SiTesla color="#0f172a" size="44" />
-              </p>
+        <div className="max-w-md mb-5 mx-auto text-center ">
+          <h1 className="font-bold uppercase text-2xl">Best Category</h1>
+          <p className="text-slate-600 text-sm mt-2">
+            Business Messenger and start delivering personalized experiences at
+            every stage of the customer journey.
+          </p>
+        </div>
 
-              <h2 className="uppercase font-bold text-slate-900">
-                Tesla Brand
-              </h2>
-              <Link
-                className="text-sm text-white mt-2 bg-slate-900 px-3 py-1 rounded "
-                to="/category/tesla"
-              >
-                See all
-              </Link>
-            </div>
-          </div>
-          <div className="lg:col-span-1 w-full">
-            <div className="py-8 px-5 flex items-center flex-col justify-center text-center bg-white rounded-md">
-              <p className="text-center mb-2">
-                <SiBmw color="#0f172a" size="44" />
-              </p>
-
-              <h2 className="uppercase font-bold text-slate-900">BMW Brand</h2>
-              <Link
-                className="text-sm text-white mt-2 bg-slate-900 px-3 py-1 rounded "
-                to="/category/bmw"
-              >
-                See all
-              </Link>
-            </div>
-          </div>
-          <div className="lg:col-span-1 w-full">
-            <div className="py-8 px-5 flex items-center flex-col justify-center text-center bg-white rounded-md">
-              <p className="text-center mb-2">
-                <SiNissan color="#0f172a" size="44" />
-              </p>
-
-              <h2 className="uppercase font-bold text-slate-900">
-                Nissan Brand
-              </h2>
-              <Link
-                className="text-sm text-white mt-2 bg-slate-900 px-3 py-1 rounded "
-                to="/category/nissan"
-              >
-                See all
-              </Link>
-            </div>
-          </div>
+        <div className="flex items-center justify-center gap-5">
+          <Link
+            to="/category/tesla"
+            className="flex items-center gap-2 px-4 py-3 bg-slate-300 rounded text-sm text-slate-700"
+          >
+            <SiTesla color="#0f172a" />
+            Tesla
+          </Link>
+          <Link
+            to="/category/bmw"
+            className="flex items-center gap-2 px-4 py-3 bg-slate-300 rounded text-sm text-slate-700"
+          >
+            <SiBmw color="#0f172a" />
+            Bmw
+          </Link>
+          <Link
+            to="/category/nissan"
+            className="flex items-center gap-2 px-4 py-3 bg-slate-300 rounded text-sm text-slate-700"
+          >
+            <SiNissan color="#0f172a" />
+            Nissan
+          </Link>
+          <button className="lg:flex hidden items-center gap-2 px-4 py-3 bg-slate-300 rounded text-sm text-slate-700">
+            <BsPlusCircle color="#0f172a" />
+            20+ Brand
+          </button>
         </div>
       </div>
     </div>

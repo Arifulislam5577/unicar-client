@@ -1,7 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { MdBarChart } from "react-icons/md";
+import { FaTimes } from "react-icons/fa";
 const Header = () => {
+  const [showMobileNav, setShowMobileNav] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    setShowMobileNav(false);
+  }, [location.pathname]);
   return (
     <header className="header py-5 bg-blue-100 bg-opacity-25">
       <div className="container">
@@ -20,10 +26,10 @@ const Header = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/">Blog</Link>
+              <Link to="/blog">Blog</Link>
             </li>
             <li>
-              <Link to="/">About Us</Link>
+              <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
               <button className="bg-slate-900 hover:bg-slate-800 rounded py-2.5  px-8  text-white text-sm">
@@ -32,9 +38,60 @@ const Header = () => {
             </li>
           </ul>
 
-          <button className="-rotate-90 lg:hidden">
-            <MdBarChart size={32} />
-          </button>
+          <div className="lg:hidden text-white">
+            <button
+              className="-rotate-90 text-slate-900"
+              onClick={() => setShowMobileNav(!showMobileNav)}
+            >
+              <MdBarChart size={32} />
+            </button>
+
+            <div
+              className={`w-full sm:w-1/2 ${
+                showMobileNav ? "translate-x-0" : "translate-x-full"
+              } duration-300 transition-all  fixed top-0 right-0 bg-slate-900 h-full z-10`}
+            >
+              <div className="flex items-center justify-between px-8 py-10">
+                <div className="flex  flex-col">
+                  <h2 className="text-xl -mb-1 tracking-widest font-bold underline ">
+                    UNICAR
+                  </h2>
+                  <p className="text-xs tracking-tighter	mt-0 text-gray-500">
+                    Your favorite car
+                  </p>
+                </div>
+                <button onClick={() => setShowMobileNav(!showMobileNav)}>
+                  <FaTimes color="#4b5563" size="24" />
+                </button>
+              </div>
+              <ul className="flex flex-col lg:hidden items-center justify-center h-2/3 gap-5 text-xl ">
+                <li>
+                  <Link
+                    className=" hover:text-slate-400 transition-all duration-100 hover:border-b-2 border-slate-500 pb-2"
+                    to="/"
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className=" hover:text-slate-400 transition-all duration-100 hover:border-b-2 border-slate-500 pb-2"
+                    to="/blog"
+                  >
+                    Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className=" hover:text-slate-400 transition-all duration-100 hover:border-b-2 border-slate-500 pb-2"
+                    to="/dashboard"
+                  >
+                    Dashboard
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </header>

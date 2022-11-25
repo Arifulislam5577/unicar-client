@@ -5,7 +5,7 @@ const AdvertisedMent = () => {
   return (
     <div className="py-10">
       <div className="container">
-        <div className="max-w-md mb-5">
+        <div className="max-w-md mb-10 mx-auto text-center ">
           <h1 className="font-bold uppercase text-2xl">Advertised</h1>
           <p className="text-slate-600 text-sm mt-2">
             Business Messenger and start delivering personalized experiences at
