@@ -32,9 +32,12 @@ const Header = () => {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <button className="bg-slate-900 hover:bg-slate-800 rounded py-2.5  px-8  text-white text-sm">
+              <Link
+                to="/login"
+                className="bg-slate-900 hover:bg-slate-800 rounded py-2.5  px-8  text-white text-sm"
+              >
                 Login
-              </button>
+              </Link>
             </li>
           </ul>
 
