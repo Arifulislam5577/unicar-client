@@ -24,3 +24,8 @@ html,
   flex-direction: column;
   justify-content: space-between;
 }
+
+.blog {
+  grid-column: span 1;
+  grid-row: span 1;
+}
