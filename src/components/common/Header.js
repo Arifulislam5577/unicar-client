@@ -101,14 +101,32 @@ const Header = () => {
                     Blog
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    className=" hover:text-slate-400 transition-all duration-100 hover:border-b-2 border-slate-500 pb-2"
-                    to="/dashboard"
-                  >
-                    Dashboard
-                  </Link>
-                </li>
+                {user ? (
+                  <>
+                    <li>
+                      <Link to="/dashboard">Dashboard</Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={logOutUser}
+                        className="bg-red-900 hover:bg-red-800 rounded py-2.5  px-8  text-white text-sm"
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <Link
+                        to="/login"
+                        className="bg-slate-100 hover:bg-slate-200 rounded py-2.5  px-8  text-slate-900 text-sm"
+                      >
+                        Login
+                      </Link>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </div>

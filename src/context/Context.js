@@ -33,7 +33,7 @@ const ContextApi = ({ children }) => {
   };
 
   const logOutUser = async () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("userInfo");
     return await signOut(auth);
   };
 
@@ -49,7 +49,13 @@ const ContextApi = ({ children }) => {
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser(user);
+        const userInfo = {
+          userName: user?.displayName,
+          userEmail: user?.email,
+          userImg: user?.photoURL,
+        };
+
+        setUser(userInfo);
         setLoader(false);
       } else {
         setUser(null);

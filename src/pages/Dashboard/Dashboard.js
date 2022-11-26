@@ -8,7 +8,11 @@ import {
   FaNotesMedical,
   FaBorderAll,
 } from "react-icons/fa";
+import { Context } from "../../context/Context";
 const Dashboard = () => {
+  const { user, logOutUser } = Context();
+
+  const dbUser = JSON.parse(localStorage.getItem("userInfo"));
   return (
     <section className="py-10">
       <div className="container">
@@ -19,82 +23,113 @@ const Dashboard = () => {
                 <div className="relative">
                   <img
                     className="w-14 h-14 rounded"
-                    src="https://images.barrons.com/im-637418?width=1280&size=1"
-                    alt=""
+                    src={user?.userImg}
+                    alt={user?.userName}
                   />
 
-                  <span className="-bottom-2 left-11 absolute inline-flex items-center p-1 mr-2 text-sm font-semibold text-white bg-blue-600 rounded-full  ">
-                    <svg
-                      aria-hidden="true"
-                      className="w-3 h-3"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                    <span className="sr-only">Icon description</span>
-                  </span>
+                  {dbUser?.user?.isVerified && (
+                    <span className="-bottom-2 left-11 absolute inline-flex items-center p-1 mr-2 text-sm font-semibold text-white bg-blue-600 rounded-full  ">
+                      <svg
+                        aria-hidden="true"
+                        className="w-3 h-3"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        ></path>
+                      </svg>
+                      <span className="sr-only">Icon description</span>
+                    </span>
+                  )}
                 </div>
                 <div>
                   <h2 className="text-sm font-bold text-slate-600">
-                    Elon Mask
+                    {user ? user.userName : "Anonymous"}
                   </h2>
-                  <p className="text-xs font-bold text-slate-400">Seller</p>
+                  <p className="text-xs font-bold text-slate-400">
+                    {dbUser?.user?.userRole}
+                  </p>
                 </div>
               </div>
               <ul className="mt-5 flex flex-col items-start gap-2 text-sm text-slate-500 w-full">
+                {user && dbUser.user.userRole === "admin" && (
+                  <>
+                    <li className="w-full">
+                      <Link
+                        to="/dashboard/sellers"
+                        className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
+                      >
+                        <FaUsers />
+                        All sellers
+                      </Link>
+                    </li>
+                    <li className="w-full">
+                      <Link
+                        to="/dashboard/buyers"
+                        className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
+                      >
+                        <FaUserGraduate />
+                        All buyers
+                      </Link>
+                    </li>
+                  </>
+                )}
+
+                {user && dbUser.user.userRole === "buyer" && (
+                  <>
+                    <li className="w-full">
+                      <Link
+                        to="/dashboard/myOrders"
+                        className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
+                      >
+                        <FaBorderAll />
+                        My orders
+                      </Link>
+                    </li>
+                  </>
+                )}
+
+                {user && dbUser.user.userRole === "seller" && (
+                  <>
+                    <li className="w-full">
+                      <Link
+                        to="/dashboard/products"
+                        className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
+                      >
+                        <FaNotesMedical />
+                        My products
+                      </Link>
+                    </li>
+                    <li className="w-full">
+                      <Link
+                        to="/dashboard/addProduct"
+                        className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
+                      >
+                        <FaPlus />
+                        Add a product
+                      </Link>
+                    </li>
+                    <li className="w-full">
+                      <Link
+                        to="#"
+                        className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
+                      >
+                        <FaPlus />
+                        My Buyers
+                      </Link>
+                    </li>
+                  </>
+                )}
+
                 <li className="w-full">
-                  <Link
-                    to="/dashboard"
+                  <button
+                    onClick={logOutUser}
                     className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
                   >
-                    <FaNotesMedical />
-                    My products
-                  </Link>
-                </li>
-                <li className="w-full">
-                  <Link
-                    to="/dashboard/myOrders"
-                    className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
-                  >
-                    <FaBorderAll />
-                    My orders
-                  </Link>
-                </li>
-                <li className="w-full">
-                  <Link
-                    to="/dashboard/addProduct"
-                    className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
-                  >
-                    <FaPlus />
-                    Add a product
-                  </Link>
-                </li>
-                <li className="w-full">
-                  <Link
-                    to="/dashboard/sellers"
-                    className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
-                  >
-                    <FaUsers />
-                    All sellers
-                  </Link>
-                </li>
-                <li className="w-full">
-                  <Link
-                    to="/dashboard/buyers"
-                    className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
-                  >
-                    <FaUserGraduate />
-                    All buyers
-                  </Link>
-                </li>
-                <li className="w-full">
-                  <button className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1">
                     <FaSignInAlt />
                     Logout
                   </button>

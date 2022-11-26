@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Context } from "../../context/Context";
 import useRedirect from "../../hooks/useRedirect";
+import { createUserInDb } from "../../apis/authApiCall";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -11,12 +12,19 @@ const SignIn = () => {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  
+
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      await createUser(data.useremail, data.password);
+      const { user } = await createUser(data.useremail, data.password);
       await updateUser(data.username);
+
+      const newUser = {
+        userName: user.displayName,
+        userEmail: user.email,
+        userRole: data.userrole,
+      };
+      await createUserInDb(newUser);
       setLoading(false);
       setError("");
     } catch (error) {
