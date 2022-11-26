@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MdBarChart } from "react-icons/md";
 import { FaTimes } from "react-icons/fa";
+import { Context } from "../../context/Context";
 const Header = () => {
+  const { user, logOutUser } = Context();
   const [showMobileNav, setShowMobileNav] = useState(false);
   const location = useLocation();
   useEffect(() => {
@@ -28,17 +30,32 @@ const Header = () => {
             <li>
               <Link to="/blog">Blog</Link>
             </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link
-                to="/login"
-                className="bg-slate-900 hover:bg-slate-800 rounded py-2.5  px-8  text-white text-sm"
-              >
-                Login
-              </Link>
-            </li>
+            {user ? (
+              <>
+                <li>
+                  <Link to="/dashboard">Dashboard</Link>
+                </li>
+                <li>
+                  <button
+                    onClick={logOutUser}
+                    className="bg-slate-900 hover:bg-slate-800 rounded py-2.5  px-8  text-white text-sm"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link
+                    to="/login"
+                    className="bg-slate-900 hover:bg-slate-800 rounded py-2.5  px-8  text-white text-sm"
+                  >
+                    Login
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
 
           <div className="lg:hidden text-white">

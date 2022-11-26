@@ -16,28 +16,28 @@ const Dashboard = () => {
           <div className="w-full lg:col-span-1">
             <div className="p-5 bg-white border-t-4  border-t-slate-900">
               <div className="flex items-center gap-3 pb-3 border-b">
-                <div class="relative">
+                <div className="relative">
                   <img
-                    class="w-14 h-14 rounded"
+                    className="w-14 h-14 rounded"
                     src="https://images.barrons.com/im-637418?width=1280&size=1"
                     alt=""
                   />
 
-                  <span class="-bottom-2 left-11 absolute inline-flex items-center p-1 mr-2 text-sm font-semibold text-white bg-blue-600 rounded-full  ">
+                  <span className="-bottom-2 left-11 absolute inline-flex items-center p-1 mr-2 text-sm font-semibold text-white bg-blue-600 rounded-full  ">
                     <svg
                       aria-hidden="true"
-                      class="w-3 h-3"
+                      className="w-3 h-3"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       ></path>
                     </svg>
-                    <span class="sr-only">Icon description</span>
+                    <span className="sr-only">Icon description</span>
                   </span>
                 </div>
                 <div>
