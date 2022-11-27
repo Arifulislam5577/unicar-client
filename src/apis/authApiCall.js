@@ -101,3 +101,24 @@ export const getSellerProducts = async () => {
     throw new Error(error.message);
   }
 };
+
+// GET CATEGORY PRODUCTS
+
+export const getProductByCategory = async (category) => {
+  try {
+    const { data } = await axios.get(
+      `${DomainName}/api/v1/products?category=${category}`,
+      {
+        headers: {
+          "content-type": "application/json",
+          Authorization:
+            "Bearer " + JSON.parse(localStorage.getItem("userInfo")).token,
+        },
+      }
+    );
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

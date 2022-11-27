@@ -1,7 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Product from "../../components/shared/Product";
+import { useQuery } from "@tanstack/react-query";
+import { getProductByCategory } from "../../apis/authApiCall";
 const Category = () => {
+  const { brandName } = useParams();
+
+  const { isLoading, data, error, isError } = useQuery({
+    queryKey: ["category", brandName],
+    queryFn: ({ queryKey }) => getProductByCategory(queryKey[1]),
+  });
+
+  console.log({ isLoading, data, error, isError });
   return (
     <section className="py-5">
       <div className="container">
@@ -43,6 +53,7 @@ const Category = () => {
                       type="search"
                       name="Search"
                       placeholder="Search..."
+                      readOnly
                       className="py-2 pl-10 text-sm rounded w-full focus:outline-none bg-gray-900 dark:text-gray-100 focus:dark:bg-gray-900 focus:dark:border-violet-400"
                     />
                   </div>
@@ -54,6 +65,7 @@ const Category = () => {
                   id="slider"
                   type="range"
                   value="75"
+                  readOnly
                   className="w-full h-2 rounded-lg cursor-pointer accent-gray-600"
                 />
                 <p className="text-xs text-gray-600">Range: $120</p>

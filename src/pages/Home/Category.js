@@ -16,21 +16,21 @@ const Category = () => {
 
         <div className="flex items-center justify-center gap-5">
           <Link
-            to="/category/tesla"
+            to={`/login?redirect=/category/tesla`}
             className="flex items-center gap-2 px-4 py-3 bg-slate-300 rounded text-sm text-slate-700"
           >
             <SiTesla color="#0f172a" />
             Tesla
           </Link>
           <Link
-            to="/category/bmw"
+            to={`/login?redirect=/category/bmw`}
             className="flex items-center gap-2 px-4 py-3 bg-slate-300 rounded text-sm text-slate-700"
           >
             <SiBmw color="#0f172a" />
             Bmw
           </Link>
           <Link
-            to="/category/nissan"
+            to={`/login?redirect=/category/nissan`}
             className="flex items-center gap-2 px-4 py-3 bg-slate-300 rounded text-sm text-slate-700"
           >
             <SiNissan color="#0f172a" />

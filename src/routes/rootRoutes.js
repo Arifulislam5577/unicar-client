@@ -23,7 +23,14 @@ const rootRoutes = createBrowserRouter([
       { path: "blog", element: <Blog /> },
       { path: "signin", element: <SignIn /> },
       { path: "login", element: <Login /> },
-      { path: "category/:brandName", element: <Category /> },
+      {
+        path: "category/:brandName",
+        element: (
+          <PrivateRoute>
+            <Category />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "dashboard",
         element: (
