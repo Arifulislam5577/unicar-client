@@ -6,33 +6,39 @@ const Product = () => {
   return (
     <div className="lg:col-span-1 w-full">
       <div className="bg-white rounded-md shadow overflow-hidden  cursor-pointer transition-all duration-300">
-        <img
-          src="https://stimg.cardekho.com/images/carexteriorimages/930x620/Tesla/Model-X/5253/1611841733029/front-left-side-47.jpg"
-          alt="car"
-          className="rounded-t-md"
-        />
+        <div className="relative">
+          <img
+            src="https://stimg.cardekho.com/images/carexteriorimages/930x620/Tesla/Model-X/5253/1611841733029/front-left-side-47.jpg"
+            alt="car"
+            className="rounded-t-md"
+          />
+
+          <small className="flex absolute top-3 p-1 gap-1 rounded left-3 bg-white text-slate-900 items-center  text-xs ">
+            <GiClockwork />
+            1hour ago
+          </small>
+        </div>
 
         <div className="px-5 py-3 ">
-          <div className="flex items-center gap-2 mb-2">
-            <small className="flex items-center gap-1 text-xs text-slate-500">
-              <GiClockwork />
-              1hour ago
-            </small>
-            <small className="flex items-center gap-1 text-xs text-slate-500">
+          <div className="flex items-center gap-1 mb-2">
+            <small className="flex items-center  text-xs text-slate-500">
               <MdLocationOn />
               Dhaka
+            </small>
+            <small className="flex items-center  text-xs text-slate-500">
+              <MdLocationOn />2 year used
             </small>
           </div>
           <div className="flex items-center justify-between">
             <h3 className="text-base font-bold text-slate-700">
               Tesla Model 3X
             </h3>
-            <h3 className="text-sm font-bold text-slate-400">$4,000</h3>
+            <div>
+              <h3 className="text-xs line-throw text-slate-400">$5,000</h3>
+              <h3 className="text-xs font-bold text-slate-400">$4,000</h3>
+            </div>
           </div>
-          <p className="text-slate-400 text-sm my-1 hidden sm:block">
-            Business Messenger and start delivering personalized stage of the
-            customer journey.
-          </p>
+
           <div className="flex items-center justify-between text-center mt-3 text-slate-400 mb-2">
             <div>
               <img

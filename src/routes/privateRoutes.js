@@ -3,6 +3,7 @@ import { Context } from "../context/Context";
 
 const PrivateRoute = ({ children }) => {
   const { user, loader } = Context();
+
   if (loader) {
     return (
       <section className="flex items-center justify-center my-20">

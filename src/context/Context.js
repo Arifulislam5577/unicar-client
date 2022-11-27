@@ -46,16 +46,20 @@ const ContextApi = ({ children }) => {
     return await signInWithPopup(auth, provider);
   };
 
+  const authProps = {
+    loader,
+    user,
+    updateUser,
+    createUser,
+    logOutUser,
+    loginUser,
+    googleLogin,
+  };
+
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const userInfo = {
-          userName: user?.displayName,
-          userEmail: user?.email,
-          userImg: user?.photoURL,
-        };
-
-        setUser(userInfo);
+        setUser(user);
         setLoader(false);
       } else {
         setUser(null);
@@ -63,20 +67,10 @@ const ContextApi = ({ children }) => {
     });
 
     return () => subscribe();
-  }, []);
+  }, [user]);
 
   return (
-    <ContextProvider.Provider
-      value={{
-        loader,
-        user,
-        updateUser,
-        createUser,
-        logOutUser,
-        loginUser,
-        googleLogin,
-      }}
-    >
+    <ContextProvider.Provider value={{ ...authProps }}>
       {children}
     </ContextProvider.Provider>
   );

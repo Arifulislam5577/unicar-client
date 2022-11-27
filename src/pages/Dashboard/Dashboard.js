@@ -23,8 +23,8 @@ const Dashboard = () => {
                 <div className="relative">
                   <img
                     className="w-14 h-14 rounded"
-                    src={user?.userImg}
-                    alt={user?.userName}
+                    src={user?.photoURL}
+                    alt={user?.displayName}
                   />
 
                   {dbUser?.user?.isVerified && (
@@ -48,7 +48,7 @@ const Dashboard = () => {
                 </div>
                 <div>
                   <h2 className="text-sm font-bold text-slate-600">
-                    {user ? user.userName : "Anonymous"}
+                    {user ? user.displayName : "Anonymous"}
                   </h2>
                   <p className="text-xs font-bold text-slate-400">
                     {dbUser?.user?.userRole}
