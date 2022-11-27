@@ -122,3 +122,24 @@ export const getProductByCategory = async (category) => {
     throw new Error(error.message);
   }
 };
+
+// GET ADVERTISED PRODUCTS
+
+export const getAdvertisedProduct = async () => {
+  try {
+    const { data } = await axios.get(
+      `${DomainName}/api/v1/products?isSold=false&isAdvertised=true`,
+      {
+        headers: {
+          "content-type": "application/json",
+          Authorization:
+            "Bearer " + JSON.parse(localStorage.getItem("userInfo")).token,
+        },
+      }
+    );
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};

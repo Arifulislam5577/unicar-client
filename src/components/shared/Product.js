@@ -3,21 +3,38 @@ import { GiClockwork } from "react-icons/gi";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { MdLocationOn, MdReportOff } from "react-icons/md";
 import { BsBagPlusFill, BsHeart } from "react-icons/bs";
-const Product = () => {
-  const dbUser = JSON.parse(localStorage.getItem("userInfo"));
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+const Product = ({ productInfo }) => {
+  TimeAgo.addLocale(en);
+  const timeAgo = new TimeAgo("en-US");
+  const {
+    name,
+    image,
+    originalPrice,
+    newPrice,
+    usedYear,
+    createdAt,
+    phoneNumber,
+    location,
+    sellerInfo,
+  } = productInfo;
+
+  console.log(phoneNumber);
+  // const dbUser = JSON.parse(localStorage.getItem("userInfo"));
   return (
     <div className="lg:col-span-1 w-full">
       <div className="bg-white rounded-md shadow overflow-hidden  cursor-pointer transition-all duration-300">
         <div className="relative">
           <img
-            src="https://stimg.cardekho.com/images/carexteriorimages/930x620/Tesla/Model-X/5253/1611841733029/front-left-side-47.jpg"
+            src={image}
             alt="car"
-            className="rounded-t-md"
+            className="rounded-t-md md:h-44 object-fit"
           />
 
           <small className="flex absolute top-3 p-1 gap-1 rounded left-3 bg-white text-slate-900 items-center  text-xs gap-1">
             <GiClockwork />
-            1hour ago
+            {timeAgo.format(new Date(createdAt))}
           </small>
         </div>
 
@@ -25,27 +42,26 @@ const Product = () => {
           <div className="flex items-center gap-1 mb-2">
             <small className="flex items-center  text-xs text-slate-500 gap-1">
               <MdLocationOn />
-              Dhaka
+              {location}
             </small>
             <small className="flex items-center  text-xs text-slate-500 gap-1">
-              <FaRegCalendarCheck />2 year used
+              <FaRegCalendarCheck />
+              {usedYear} year used
             </small>
           </div>
           <div className="flex items-center justify-between">
-            <h3 className="text-base font-bold text-slate-700">
-              Tesla Model 3X
-            </h3>
+            <h3 className="text-base font-bold text-slate-700">{name}</h3>
           </div>
 
           <div className="flex items-center gap-2 justify-between my-2">
             <div className="flex items-center gap-1">
               <div className="relative">
                 <img
-                  src="https://images.barrons.com/im-637418?width=1280&size=1"
+                  src="https://www.shareicon.net/data/2016/05/24/770107_man_512x512.png"
                   alt=""
                   className="h-8 w-8 rounded border border-slate-300"
                 />
-                {dbUser?.user?.isVerified && (
+                {sellerInfo?.isVerified && (
                   <span className="-bottom-1 left-5 absolute inline-flex items-center p-1 mr-2 text-sm font-semibold text-white bg-blue-600 rounded-full  ">
                     <svg
                       aria-hidden="true"
@@ -65,15 +81,17 @@ const Product = () => {
                 )}
               </div>
               <div className="text-xs">
-                <h2 className="text-slate-600 font-bold">Elon Mask</h2>
-                <p className="text-slate-500">Seller</p>
+                <h2 className="text-slate-600 font-bold">
+                  {sellerInfo?.userName}
+                </h2>
+                <p className="text-slate-500">{sellerInfo?.userRole}</p>
               </div>
             </div>
             <div>
               <h3 className="text-xs line-throw text-slate-400 line-through">
-                $5,000
+                ${originalPrice}
               </h3>
-              <h3 className="text-sm text-slate-600">$4,000</h3>
+              <h3 className="text-sm text-slate-600">${newPrice}</h3>
             </div>
           </div>
           <div className="flex items-center justify-start text-center mt-3 text-slate-400 mb-2">
