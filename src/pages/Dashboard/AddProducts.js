@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { createNewProduct } from "../../apis/authApiCall";
+import { createNewProduct } from "../../apis/productApiCall";
 
 const AddProducts = () => {
   const navigate = useNavigate();

@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { GiClockwork } from "react-icons/gi";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { MdLocationOn, MdReportOff } from "react-icons/md";
 import { BsBagPlusFill, BsHeart } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import { Context } from "../../context/Context";
+import Modal from "./Modal";
 const Product = ({ productInfo }) => {
+  const [showModal, setShowModal] = useState(false);
+  const { user } = Context();
   TimeAgo.addLocale(en);
   const timeAgo = new TimeAgo("en-US");
   const {
@@ -15,15 +20,25 @@ const Product = ({ productInfo }) => {
     newPrice,
     usedYear,
     createdAt,
-    phoneNumber,
+    _id,
     location,
     sellerInfo,
   } = productInfo;
-
-  console.log(phoneNumber);
+  const navigate = useNavigate();
+  console.log(showModal);
+  const handleBooked = () => {
+    if (!user) {
+      navigate("/login");
+    }
+    setShowModal(true);
+  };
   // const dbUser = JSON.parse(localStorage.getItem("userInfo"));
   return (
     <div className="lg:col-span-1 w-full">
+      {showModal && (
+        <Modal product={{ name, _id, newPrice }} setShowModal={setShowModal} />
+      )}
+
       <div className="bg-white rounded-md shadow overflow-hidden  cursor-pointer transition-all duration-300">
         <div className="relative">
           <img
@@ -99,6 +114,9 @@ const Product = ({ productInfo }) => {
               <button
                 className="hover:text-slate-700 duration-200 transition-all h-8 w-8 rounded bg-gray-200 flex items-center justify-center"
                 title="Book Now"
+                onClick={() => {
+                  handleBooked(_id);
+                }}
               >
                 <BsBagPlusFill size="16" />
               </button>

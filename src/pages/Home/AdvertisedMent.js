@@ -1,7 +1,7 @@
 import React from "react";
 import Product from "../../components/shared/Product";
 import { useQuery } from "@tanstack/react-query";
-import { getAdvertisedProduct } from "../../apis/authApiCall";
+import { getAdvertisedProduct } from "../../apis/productApiCall";
 import Loader from "../../components/shared/Loader";
 const AdvertisedMent = () => {
   const { isLoading, data, error, isError } = useQuery({
@@ -29,7 +29,7 @@ const AdvertisedMent = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {data?.map((pd) => (
-              <Product id={pd._id} productInfo={pd} />
+              <Product key={pd._id} productInfo={pd} />
             ))}
           </div>
         </div>

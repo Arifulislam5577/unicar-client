@@ -1,15 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getSellerProducts } from "../../apis/authApiCall";
-
+import {
+  deleteSellerProduct,
+  getSellerProducts,
+  makeProductAdvertiseMent,
+} from "../../apis/productApiCall";
+import Loader from "../../components/shared/Loader";
 const MyProducts = () => {
-  const { isLoading, data, isError, error } = useQuery({
+  const { isLoading, data, isError, error, refetch } = useQuery({
     queryKey: ["sellerProducts"],
     queryFn: getSellerProducts,
   });
 
+  const handleClick = async (id) => {
+    const { data } = await makeProductAdvertiseMent(id);
+    data && refetch();
+  };
+
+  const handleDelete = async (id) => {
+    const { data } = await deleteSellerProduct(id);
+    data && refetch();
+  };
+
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loader />;
   } else if (isError) {
     return <h1>{error}</h1>;
   } else if (data.length === 0) {
@@ -25,7 +39,7 @@ const MyProducts = () => {
     return (
       <div className="overflow-x-auto relative">
         <table className="w-full text-sm text-left ">
-          <thead className="text-xs uppercase bg-white text-slate-900 border-t-4 border-t-slate-900">
+          <thead className="text-xs uppercase  text-slate-100 bg-slate-900">
             <tr>
               <th scope="col" className="py-5 px-6">
                 Image
@@ -37,22 +51,48 @@ const MyProducts = () => {
               <th scope="col" className="py-5 px-6">
                 Price
               </th>
+
               <th scope="col" className="py-5 px-6">
-                <button>Payment status</button>
+                Status
+              </th>
+              <th scope="col" className="py-5 px-6">
+                Action
               </th>
             </tr>
           </thead>
           <tbody>
             {data?.map((pd) => (
-              <tr className="bg-white border-b border-t" key={pd._id}>
+              <tr className="bg-white border-b border-t text-xs" key={pd._id}>
                 <td className="py-4 px-6">
                   <img src={pd.image} alt="" className="h-10 rounded" />
                 </td>
                 <td className="py-4 px-6">{pd.name}</td>
                 <td className="py-4 px-6">${pd.newPrice}</td>
                 <td className="py-4 px-6">
-                  <button className="bg-slate-900 text-white px-5 py-2 rounded">
-                    Pay Now
+                  {pd.isSold ? "Not Avaliable" : "Avaliable"}
+                </td>
+                <td className="py-4 px-6 ">
+                  {pd.isAdvertised ? (
+                    <button className="bg-slate-100 text-slate-900 px-3 py-1 rounded  mr-2">
+                      Advertised
+                    </button>
+                  ) : (
+                    <button
+                      className="bg-slate-900 text-white px-3 py-1 rounded  mr-2"
+                      onClick={() => handleClick(pd._id)}
+                    >
+                      Make Advertised
+                    </button>
+                  )}
+
+                  <button
+                    className="bg-red-900 text-white px-3 py-1 rounded"
+                    onClick={() => {
+                      console.log({ id: pd._id, name: pd.name });
+                      handleDelete(pd._id);
+                    }}
+                  >
+                    Delete
                   </button>
                 </td>
               </tr>
