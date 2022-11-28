@@ -132,6 +132,10 @@ const SignIn = () => {
               </p>
             </div>
           </form>
+
+          <button className="mt-2 w-full py-3 rounded bg-slate-200 text-slate-900 text-sm">
+            Signin with Google
+          </button>
         </div>
       </div>
     </section>

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUserInDb } from "../../apis/authApiCall";
 import { Context } from "../../context/Context";
 import useRedirect from "../../hooks/useRedirect";
+import useTitle from "../../hooks/useTitle";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Login = () => {
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  useTitle("Login");
 
   const onSubmit = async (data) => {
     setLoading(true);

@@ -8,13 +8,15 @@ import {
   FaNotesMedical,
   FaBorderAll,
 } from "react-icons/fa";
+import { BsHeart } from "react-icons/bs";
 import { Context } from "../../context/Context";
+import useTitle from "../../hooks/useTitle";
 const Dashboard = () => {
   const { user, logOutUser } = Context();
-
+  useTitle(`Dashboard`);
   const dbUser = JSON.parse(localStorage.getItem("userInfo"));
   return (
-    <section className="py-10">
+    <section className="lg:py-10 py-5">
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
           <div className="w-full lg:col-span-1">
@@ -95,7 +97,7 @@ const Dashboard = () => {
                         to="/dashboard/wishlist"
                         className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
                       >
-                        <FaBorderAll />
+                        <BsHeart />
                         WishList
                       </Link>
                     </li>

@@ -1,8 +1,9 @@
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateOrder } from "../../apis/productApiCall";
+import { getClientSecret, updateOrder } from "../../apis/productApiCall";
 import { Context } from "../../context/Context";
+import toast from "react-hot-toast";
 const Checkout = ({ productInfo, orderId }) => {
   const { user } = Context();
   const [cardError, setCardError] = useState("");
@@ -55,23 +56,11 @@ const Checkout = ({ productInfo, orderId }) => {
   };
 
   useEffect(() => {
-    const getClientSecret = async () => {
-      const res = await fetch("http://localhost:5000/api/v1/orders/payment", {
-        method: "POST",
-        body: JSON.stringify({ price: productInfo.newPrice }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("userInfo")).token
-          }`,
-        },
-      });
-
-      const result = await res.json();
-      setClientSecret(result.clientSecret);
+    const getClientKey = async () => {
+      const data = await getClientSecret(productInfo.newPrice);
+      data && setClientSecret(data);
     };
-
-    getClientSecret();
+    getClientKey();
   }, [productInfo.newPrice]);
 
   useEffect(() => {
@@ -79,6 +68,7 @@ const Checkout = ({ productInfo, orderId }) => {
       if (transitionId) {
         const data = await updateOrder(orderId, transitionId);
         data && navigate("/dashboard/myOrders");
+        toast.success("Payment Sucess");
       }
     };
     updateOrderIndb();

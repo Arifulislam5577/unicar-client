@@ -80,7 +80,9 @@ const ContextApi = ({ children }) => {
   }, [user]);
 
   return (
-    <ContextProvider.Provider value={{ ...authProps, wishlist }}>
+    <ContextProvider.Provider
+      value={{ ...authProps, wishlist, wishlistProduct }}
+    >
       {children}
     </ContextProvider.Provider>
   );

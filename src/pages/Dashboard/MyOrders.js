@@ -15,7 +15,7 @@ const MyOrders = () => {
     return <Loader />;
   } else if (isError) {
     return <h1>{error}</h1>;
-  } else if (data.length === 0) {
+  } else if (data?.length === 0) {
     return (
       <div>
         <h1 className="text-xl font-bold uppercase">No Order</h1>

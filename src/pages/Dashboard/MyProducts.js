@@ -5,6 +5,8 @@ import {
   getSellerProducts,
   updateProduct,
 } from "../../apis/productApiCall";
+import toast from "react-hot-toast";
+
 import Loader from "../../components/shared/Loader";
 const MyProducts = () => {
   const { isLoading, data, isError, error, refetch } = useQuery({
@@ -15,6 +17,7 @@ const MyProducts = () => {
   const handleClick = async (id) => {
     const { data } = await updateProduct(id, { isAdvertised: true });
     data && refetch();
+    toast.success("Product Advertised");
   };
 
   const handleDelete = async (id) => {
@@ -53,7 +56,7 @@ const MyProducts = () => {
               </th>
 
               <th scope="col" className="py-5 px-6">
-                Status
+                Sales Status
               </th>
               <th scope="col" className="py-5 px-6">
                 Action
@@ -69,28 +72,30 @@ const MyProducts = () => {
                 <td className="py-4 px-6">{pd.name}</td>
                 <td className="py-4 px-6">${pd.newPrice}</td>
                 <td className="py-4 px-6">
-                  {pd.isSold ? "Not Avaliable" : "Avaliable"}
+                  {pd.isSold ? (
+                    <span className="text-xs font-bold text-red-900">Sold</span>
+                  ) : (
+                    "Avaliable"
+                  )}
                 </td>
                 <td className="py-4 px-6 ">
-                  {pd.isAdvertised ? (
-                    <button className="bg-slate-100 text-slate-900 px-3 py-1 rounded  mr-2">
-                      Advertised
-                    </button>
-                  ) : (
+                  {!pd.isAdvertised ? (
                     <button
+                      disabled={pd.isSold}
                       className="bg-slate-900 text-white px-3 py-1 rounded  mr-2"
                       onClick={() => handleClick(pd._id)}
                     >
-                      Make Advertised
+                      Advertise
+                    </button>
+                  ) : pd.isSold ? null : (
+                    <button className="bg-slate-100 text-slate-900 px-3 py-1 rounded  mr-2">
+                      Advertised
                     </button>
                   )}
 
                   <button
                     className="bg-red-900 text-white px-3 py-1 rounded"
-                    onClick={() => {
-                      console.log({ id: pd._id, name: pd.name });
-                      handleDelete(pd._id);
-                    }}
+                    onClick={() => handleDelete(pd._id)}
                   >
                     Delete
                   </button>

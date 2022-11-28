@@ -1,5 +1,6 @@
 import axios from "axios";
-const DomainName = "http://localhost:5000";
+const DomainName = "https://unicar-server.vercel.app";
+
 export const createUserInDb = async (user) => {
   try {
     const { data } = await axios.post(`${DomainName}/api/v1/users/signin`, {
@@ -19,7 +20,6 @@ export const loginUserInDb = async (email) => {
     const { data } = await axios.post(`${DomainName}/api/v1/users/login`, {
       userEmail: email,
     });
-
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     throw new Error(error.message);
@@ -38,6 +38,24 @@ export const getAllUser = async (role) => {
         },
       }
     );
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+// UPDATE USER
+
+export const updateUser = async (userId) => {
+  try {
+    const { data } = await axios.patch(`${DomainName}/api/v1/users/${userId}`, {
+      headers: {
+        "content-type": "application/json",
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("userInfo")).token,
+      },
+    });
 
     return data;
   } catch (error) {

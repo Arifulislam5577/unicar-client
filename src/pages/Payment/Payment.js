@@ -3,11 +3,12 @@ import { useLocation } from "react-router-dom";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Checkout from "./CheckOut";
+import useTitle from "../../hooks/useTitle";
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 const Payment = () => {
   const { state } = useLocation();
   const { productInfo, buyerInfo, _id } = state;
-
+  useTitle("Payment");
   return (
     <section className="py-5">
       <div className="container">

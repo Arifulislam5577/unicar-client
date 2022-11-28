@@ -4,6 +4,7 @@ import Product from "../../components/shared/Product";
 import { useQuery } from "@tanstack/react-query";
 import { getProductByCategory } from "../../apis/productApiCall";
 import Loader from "../../components/shared/Loader";
+import useTitle from "../../hooks/useTitle";
 const Category = () => {
   const { brandName } = useParams();
 
@@ -11,6 +12,8 @@ const Category = () => {
     queryKey: ["category", brandName],
     queryFn: ({ queryKey }) => getProductByCategory(queryKey[1]),
   });
+
+  useTitle(`${brandName} - category`);
 
   return (
     <section className="py-5">

@@ -1,10 +1,8 @@
 import axios from "axios";
-const DomainName = "http://localhost:5000";
+const DomainName = "https://unicar-server.vercel.app";
+
 const dbUser = JSON.parse(localStorage.getItem("userInfo"));
 // CREATE A NEW PRODUCT
-
-console.log(dbUser);
-
 export const createNewProduct = async (productData) => {
   try {
     const { data } = await axios.post(
@@ -159,7 +157,7 @@ export const createNewOrder = async (orderInfo) => {
 export const getOrders = async () => {
   try {
     const { data } = await axios.get(
-      `${DomainName}/api/v1/orders?userId=${dbUser?.user._id}`,
+      `${DomainName}/api/v1/orders?userId=${dbUser?.user?._id}`,
       {
         headers: {
           "content-type": "application/json",
@@ -192,6 +190,26 @@ export const updateOrder = async (orderId, transitionId) => {
     );
 
     return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+// GET CLIENT SECRET
+export const getClientSecret = async (price) => {
+  try {
+    const { data } = await axios.post(
+      `${DomainName}/api/v1/orders/payment`,
+      { price },
+      {
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          authorization: `Bearer ${dbUser.token}`,
+        },
+      }
+    );
+
+    return data.clientSecret;
   } catch (error) {
     throw new Error(error.message);
   }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { createNewProduct } from "../../apis/productApiCall";
-
+import toast from "react-hot-toast";
 const AddProducts = () => {
   const navigate = useNavigate();
   const [image, setImage] = useState("");
@@ -31,6 +31,7 @@ const AddProducts = () => {
       await createNewProduct(product);
       setLoading(false);
       setError("");
+      toast.success("Product Added");
       navigate("/dashboard/products");
     } catch (error) {
       setLoading(false);

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { FaTimes } from "react-icons/fa";
 import { createNewOrder, updateProduct } from "../../apis/productApiCall";
 import { Context } from "../../context/Context";
-
+import toast from "react-hot-toast";
 const Modal = ({ product, setShowModal }) => {
   const { user } = Context();
   const { name, newPrice, _id } = product;
@@ -21,6 +21,7 @@ const Modal = ({ product, setShowModal }) => {
       };
       await createNewOrder(orderInfo);
       await updateProduct(_id, { isSold: true });
+      toast.success("Order Created");
 
       setLoading(false);
       setError("");
