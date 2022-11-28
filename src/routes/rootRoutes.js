@@ -12,6 +12,7 @@ import Welcome from "../pages/Dashboard/Welcome";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
+import Payment from "../pages/Payment/Payment";
 import SignIn from "../pages/SignIn/SignIn";
 import PrivateRoute from "./privateRoutes";
 const rootRoutes = createBrowserRouter([
@@ -23,6 +24,14 @@ const rootRoutes = createBrowserRouter([
       { path: "blog", element: <Blog /> },
       { path: "signin", element: <SignIn /> },
       { path: "login", element: <Login /> },
+      {
+        path: "payment/:id",
+        element: (
+          <PrivateRoute>
+            <Payment />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "category/:brandName",
         element: (

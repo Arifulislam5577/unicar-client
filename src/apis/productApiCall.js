@@ -1,5 +1,6 @@
 import axios from "axios";
 const DomainName = "http://localhost:5000";
+const dbUser = JSON.parse(localStorage.getItem("userInfo"));
 // CREATE A NEW PRODUCT
 
 export const createNewProduct = async (productData) => {
@@ -18,13 +19,12 @@ export const createNewProduct = async (productData) => {
         location: productData.location,
         category: productData.category,
         conditionType: productData.conditionType,
-        sellerInfo: JSON.parse(localStorage.getItem("userInfo")).user._id,
+        sellerInfo: dbUser?.user._id,
       },
       {
         headers: {
           "content-type": "application/json",
-          Authorization:
-            "Bearer " + JSON.parse(localStorage.getItem("userInfo")).token,
+          Authorization: "Bearer " + dbUser?.token,
         },
       }
     );
@@ -39,14 +39,11 @@ export const createNewProduct = async (productData) => {
 export const getSellerProducts = async () => {
   try {
     const { data } = await axios.get(
-      `${DomainName}/api/v1/products?sellerId=${
-        JSON.parse(localStorage.getItem("userInfo")).user._id
-      }`,
+      `${DomainName}/api/v1/products?sellerId=${dbUser?.user._id}`,
       {
         headers: {
           "content-type": "application/json",
-          Authorization:
-            "Bearer " + JSON.parse(localStorage.getItem("userInfo")).token,
+          Authorization: "Bearer " + dbUser?.token,
         },
       }
     );
@@ -66,8 +63,7 @@ export const getProductByCategory = async (category) => {
       {
         headers: {
           "content-type": "application/json",
-          Authorization:
-            "Bearer " + JSON.parse(localStorage.getItem("userInfo")).token,
+          Authorization: "Bearer " + dbUser?.token,
         },
       }
     );
@@ -94,16 +90,15 @@ export const getAdvertisedProduct = async () => {
 
 // MAKE ADVERTISEMENT PRODUCT
 
-export const makeProductAdvertiseMent = async (productId) => {
+export const updateProduct = async (productId, updatedKey) => {
   try {
     const { data } = await axios.patch(
       `${DomainName}/api/v1/products/${productId}`,
-      { isAdvertised: true },
+      { ...updatedKey },
       {
         headers: {
           "content-type": "application/json",
-          Authorization:
-            "Bearer " + JSON.parse(localStorage.getItem("userInfo")).token,
+          Authorization: "Bearer " + dbUser?.token,
         },
       }
     );
@@ -122,8 +117,51 @@ export const deleteSellerProduct = async (productId) => {
       {
         headers: {
           "content-type": "application/json",
-          Authorization:
-            "Bearer " + JSON.parse(localStorage.getItem("userInfo")).token,
+          Authorization: "Bearer " + dbUser?.token,
+        },
+      }
+    );
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+// CREATE NEW ORDER
+
+export const createNewOrder = async (orderInfo) => {
+  try {
+    const { data } = await axios.post(
+      `${DomainName}/api/v1/orders`,
+      {
+        ...orderInfo,
+        buyerInfo: JSON.parse(localStorage.getItem("userInfo"))?.user._id,
+      },
+      {
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + dbUser?.token,
+        },
+      }
+    );
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+// PRODUCT SOLD STUTUS
+
+export const getOrders = async () => {
+  try {
+    const { data } = await axios.get(
+      `${DomainName}/api/v1/orders?userId=${dbUser?.user._id}`,
+      {
+        headers: {
+          "content-type": "application/json",
+          Authorization: "Bearer " + dbUser?.token,
         },
       }
     );

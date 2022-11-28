@@ -25,14 +25,13 @@ const Product = ({ productInfo }) => {
     sellerInfo,
   } = productInfo;
   const navigate = useNavigate();
-  console.log(showModal);
   const handleBooked = () => {
     if (!user) {
       navigate("/login");
     }
     setShowModal(true);
   };
-  // const dbUser = JSON.parse(localStorage.getItem("userInfo"));
+
   return (
     <div className="lg:col-span-1 w-full">
       {showModal && (
@@ -47,7 +46,7 @@ const Product = ({ productInfo }) => {
             className="rounded-t-md md:h-44 object-fit"
           />
 
-          <small className="flex absolute top-3 p-1 gap-1 rounded left-3 bg-white text-slate-900 items-center  text-xs gap-1">
+          <small className="flex absolute top-3 p-1 gap-1 rounded left-3 bg-white text-slate-900 items-center  text-xs">
             <GiClockwork />
             {timeAgo.format(new Date(createdAt))}
           </small>

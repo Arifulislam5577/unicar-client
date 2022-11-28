@@ -3,7 +3,7 @@ import React from "react";
 import {
   deleteSellerProduct,
   getSellerProducts,
-  makeProductAdvertiseMent,
+  updateProduct,
 } from "../../apis/productApiCall";
 import Loader from "../../components/shared/Loader";
 const MyProducts = () => {
@@ -13,7 +13,7 @@ const MyProducts = () => {
   });
 
   const handleClick = async (id) => {
-    const { data } = await makeProductAdvertiseMent(id);
+    const { data } = await updateProduct(id, { isAdvertised: true });
     data && refetch();
   };
 
