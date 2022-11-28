@@ -56,7 +56,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <ul className="mt-5 flex flex-col items-start gap-2 text-sm text-slate-500 w-full">
-                {user && dbUser.user.userRole === "admin" && (
+                {user && dbUser?.user?.userRole === "admin" && (
                   <>
                     <li className="w-full">
                       <Link
@@ -79,7 +79,7 @@ const Dashboard = () => {
                   </>
                 )}
 
-                {user && dbUser.user.userRole === "buyer" && (
+                {user && dbUser?.user?.userRole === "buyer" && (
                   <>
                     <li className="w-full">
                       <Link
@@ -90,10 +90,19 @@ const Dashboard = () => {
                         My orders
                       </Link>
                     </li>
+                    <li className="w-full">
+                      <Link
+                        to="/dashboard/wishlist"
+                        className="py-2 px-3 hover:bg-slate-900 hover:text-white transition-all duration-200 w-full rounded flex items-center gap-1"
+                      >
+                        <FaBorderAll />
+                        WishList
+                      </Link>
+                    </li>
                   </>
                 )}
 
-                {user && dbUser.user.userRole === "seller" && (
+                {user && dbUser?.user?.userRole === "seller" && (
                   <>
                     <li className="w-full">
                       <Link

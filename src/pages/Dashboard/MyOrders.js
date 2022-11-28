@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { getOrders } from "../../apis/productApiCall";
 import Loader from "../../components/shared/Loader";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const MyOrders = () => {
   const { isLoading, data, isError, error } = useQuery({
     queryKey: ["orders"],
@@ -10,8 +10,6 @@ const MyOrders = () => {
   });
 
   const navigate = useNavigate();
-
-  const handlePayment = () => {};
 
   if (isLoading) {
     return <Loader />;

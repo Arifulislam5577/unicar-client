@@ -19,10 +19,9 @@ const Modal = ({ product, setShowModal }) => {
         location: data.location,
         phoneNumber: data.phoneNumber,
       };
-      const orderData = await createNewOrder(orderInfo);
+      await createNewOrder(orderInfo);
       await updateProduct(_id, { isSold: true });
 
-      console.log(orderData);
       setLoading(false);
       setError("");
     } catch (error) {

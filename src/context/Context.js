@@ -14,8 +14,12 @@ const provider = new GoogleAuthProvider();
 export const ContextProvider = createContext();
 
 const ContextApi = ({ children }) => {
+  const wishlistItems = localStorage.getItem("wishlist")
+    ? JSON.parse(localStorage.getItem("wishlist"))
+    : [];
   const [loader, setLoader] = useState(true);
   const [user, setUser] = useState(null);
+  const [wishlistProduct, setWishlistProduct] = useState(wishlistItems);
 
   const createUser = async (email, password) => {
     setLoader(true);
@@ -46,6 +50,12 @@ const ContextApi = ({ children }) => {
     return await signInWithPopup(auth, provider);
   };
 
+  localStorage.setItem("wishlist", JSON.stringify(wishlistProduct));
+
+  const wishlist = (product) => {
+    setWishlistProduct([...wishlistProduct, product]);
+  };
+
   const authProps = {
     loader,
     user,
@@ -70,7 +80,7 @@ const ContextApi = ({ children }) => {
   }, [user]);
 
   return (
-    <ContextProvider.Provider value={{ ...authProps }}>
+    <ContextProvider.Provider value={{ ...authProps, wishlist }}>
       {children}
     </ContextProvider.Provider>
   );

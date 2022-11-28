@@ -6,9 +6,8 @@ import Checkout from "./CheckOut";
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 const Payment = () => {
   const { state } = useLocation();
+  const { productInfo, buyerInfo, _id } = state;
 
-  console.log(state);
-  const { productInfo, buyerInfo } = state;
   return (
     <section className="py-5">
       <div className="container">
@@ -42,7 +41,7 @@ const Payment = () => {
           </div>
           <div className="lg:col-span-1">
             <Elements stripe={stripePromise}>
-              <Checkout productInfo={productInfo} />
+              <Checkout productInfo={productInfo} orderId={_id} />
             </Elements>
           </div>
         </div>

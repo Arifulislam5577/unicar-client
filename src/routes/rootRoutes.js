@@ -9,6 +9,7 @@ import MyOrders from "../pages/Dashboard/MyOrders";
 import MyProducts from "../pages/Dashboard/MyProducts";
 import Sellers from "../pages/Dashboard/Sellers";
 import Welcome from "../pages/Dashboard/Welcome";
+import WishList from "../pages/Dashboard/WishList";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import NotFound from "../pages/NotFound/NotFound";
@@ -54,6 +55,7 @@ const rootRoutes = createBrowserRouter([
           { path: "buyers", element: <Buyers /> },
           { path: "addProduct", element: <AddProducts /> },
           { path: "myOrders", element: <MyOrders /> },
+          { path: "wishlist", element: <WishList /> },
         ],
       },
       { path: "*", element: <NotFound /> },

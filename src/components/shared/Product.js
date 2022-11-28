@@ -10,7 +10,7 @@ import { Context } from "../../context/Context";
 import Modal from "./Modal";
 const Product = ({ productInfo }) => {
   const [showModal, setShowModal] = useState(false);
-  const { user } = Context();
+  const { user, wishlist } = Context();
   TimeAgo.addLocale(en);
   const timeAgo = new TimeAgo("en-US");
   const {
@@ -122,6 +122,7 @@ const Product = ({ productInfo }) => {
               <button
                 className="hover:text-slate-700 duration-200 transition-all h-8 w-8 rounded bg-gray-200 flex items-center justify-center"
                 title="Add to wishlist"
+                onClick={() => wishlist(productInfo)}
               >
                 <BsHeart size="16" />
               </button>

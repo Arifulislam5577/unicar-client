@@ -1,14 +1,16 @@
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { updateOrder } from "../../apis/productApiCall";
 import { Context } from "../../context/Context";
-const Checkout = ({ productInfo }) => {
+const Checkout = ({ productInfo, orderId }) => {
   const { user } = Context();
   const [cardError, setCardError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
+  const [transitionId, setTransitionId] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-
-  console.log(clientSecret);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,6 +43,10 @@ const Checkout = ({ productInfo }) => {
       console.log(intentError);
     }
 
+    if (paymentIntent) {
+      setTransitionId(paymentIntent.id);
+    }
+
     if (error) {
       setCardError(error);
     } else {
@@ -67,6 +73,16 @@ const Checkout = ({ productInfo }) => {
 
     getClientSecret();
   }, [productInfo.newPrice]);
+
+  useEffect(() => {
+    const updateOrderIndb = async () => {
+      if (transitionId) {
+        const data = await updateOrder(orderId, transitionId);
+        data && navigate("/dashboard/myOrders");
+      }
+    };
+    updateOrderIndb();
+  }, [transitionId, orderId, navigate]);
 
   return (
     <form onSubmit={handleSubmit} className="p-5">
