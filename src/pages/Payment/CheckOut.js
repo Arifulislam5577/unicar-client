@@ -41,7 +41,7 @@ const Checkout = ({ productInfo, orderId }) => {
       });
 
     if (intentError) {
-      console.log(intentError);
+      setCardError(intentError);
     }
 
     if (paymentIntent) {

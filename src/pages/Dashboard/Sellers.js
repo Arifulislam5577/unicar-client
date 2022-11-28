@@ -1,18 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getAllUser } from "../../apis/authApiCall";
+import toast from "react-hot-toast";
+import { deleteUser, getAllUser, updateUser } from "../../apis/authApiCall";
 
 const Sellers = () => {
-  const { isLoading, data, isError, error } = useQuery({
+  const { isLoading, data, isError, error, refetch } = useQuery({
     queryKey: ["users"],
     queryFn: () => getAllUser("seller"),
   });
+
+  const handleUpdateUser = async (id) => {
+    await updateUser(id);
+    toast.success("User Updated");
+    refetch();
+  };
+
+  const handleDeleteUser = async (id) => {
+    await deleteUser(id);
+    toast.success("User Deleted");
+    refetch();
+  };
 
   if (isLoading) {
     return <h1>Loading...</h1>;
   } else if (isError) {
     return <h1>{error}</h1>;
-  } else if (data.length === 0) {
+  } else if (!data?.length) {
     return <h1>No User</h1>;
   } else {
     return (
@@ -37,7 +50,7 @@ const Sellers = () => {
           </thead>
           <tbody>
             {data?.map((user) => (
-              <tr className="bg-white border-b border-t">
+              <tr className="bg-white border-b border-t" key={user._id}>
                 <td className="py-4 px-6">{user.userName}</td>
                 <td className="py-4 px-6">{user.userEmail}</td>
                 <td className="py-4 px-6">{user.userRole}</td>
@@ -50,12 +63,18 @@ const Sellers = () => {
                       Verifed
                     </button>
                   ) : (
-                    <button className="bg-slate-900 text-white px-5 py-2 rounded mr-2">
+                    <button
+                      onClick={() => handleUpdateUser(user._id)}
+                      className="bg-slate-900 text-white px-5 py-2 rounded mr-2"
+                    >
                       Verify
                     </button>
                   )}
 
-                  <button className="bg-red-900 text-white px-5 py-2 rounded">
+                  <button
+                    onClick={() => handleDeleteUser(user._id)}
+                    className="bg-red-900 text-white px-5 py-2 rounded"
+                  >
                     Delete
                   </button>
                 </td>

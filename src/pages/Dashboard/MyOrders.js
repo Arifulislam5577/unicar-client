@@ -15,7 +15,7 @@ const MyOrders = () => {
     return <Loader />;
   } else if (isError) {
     return <h1>{error}</h1>;
-  } else if (data?.length === 0) {
+  } else if (!data?.length) {
     return (
       <div>
         <h1 className="text-xl font-bold uppercase">No Order</h1>
@@ -45,19 +45,19 @@ const MyOrders = () => {
           </thead>
           <tbody>
             {data?.map((pd) => {
-              const {
-                productInfo: { name, newPrice, image },
-                _id,
-                isPaid,
-              } = pd;
+              const { productInfo, _id, isPaid } = pd;
 
               return (
                 <tr className="bg-white border-b border-t" key={_id}>
                   <td className="py-4 px-6">
-                    <img src={image} alt={name} className="h-10 w-12 rounded" />
+                    <img
+                      src={productInfo?.image}
+                      alt={productInfo?.name}
+                      className="h-10 w-12 rounded"
+                    />
                   </td>
-                  <td className="py-4 px-6">{name}</td>
-                  <td className="py-4 px-6">${newPrice}</td>
+                  <td className="py-4 px-6">{productInfo?.name}</td>
+                  <td className="py-4 px-6">${productInfo?.newPrice}</td>
                   <td className="py-4 px-6">
                     {isPaid ? (
                       <button className="bg-slate-100 text-slate-900 px-2 text-xs py-1 rounded">

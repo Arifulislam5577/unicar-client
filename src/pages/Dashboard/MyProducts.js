@@ -29,7 +29,7 @@ const MyProducts = () => {
     return <Loader />;
   } else if (isError) {
     return <h1>{error}</h1>;
-  } else if (data.length === 0) {
+  } else if (!data?.length) {
     return (
       <div>
         <h1 className="text-xl font-bold uppercase">No Product</h1>
@@ -79,17 +79,13 @@ const MyProducts = () => {
                   )}
                 </td>
                 <td className="py-4 px-6 ">
-                  {!pd.isAdvertised ? (
+                  {!pd.isSold && !pd.isAdvertised && (
                     <button
                       disabled={pd.isSold}
                       className="bg-slate-900 text-white px-3 py-1 rounded  mr-2"
                       onClick={() => handleClick(pd._id)}
                     >
                       Advertise
-                    </button>
-                  ) : pd.isSold ? null : (
-                    <button className="bg-slate-100 text-slate-900 px-3 py-1 rounded  mr-2">
-                      Advertised
                     </button>
                   )}
 
