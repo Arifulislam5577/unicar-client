@@ -8,7 +8,7 @@ import { createUserInDb } from "../../apis/authApiCall";
 const SignIn = () => {
   const navigate = useNavigate();
   const redirect = useRedirect();
-  const { createUser, updateUser, user } = Context();
+  const { createUser, updateUser, user, googleLogin } = Context();
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -24,11 +24,19 @@ const SignIn = () => {
         userEmail: user.email,
         userRole: data.userrole,
       };
-      await createUserInDb(newUser);
+      await createUserInDb(newUser, false);
       setLoading(false);
       setError("");
     } catch (error) {
       setLoading(false);
+      setError(error.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await googleLogin();
+    } catch (error) {
       setError(error.message);
     }
   };
@@ -133,7 +141,10 @@ const SignIn = () => {
             </div>
           </form>
 
-          <button className="mt-2 w-full py-3 rounded bg-slate-200 text-slate-900 text-sm">
+          <button
+            onClick={handleGoogleLogin}
+            className="mt-2 w-full py-3 rounded bg-slate-200 text-slate-900 text-sm"
+          >
             Signin with Google
           </button>
         </div>

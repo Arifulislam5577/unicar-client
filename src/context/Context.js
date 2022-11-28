@@ -53,6 +53,10 @@ const ContextApi = ({ children }) => {
   localStorage.setItem("wishlist", JSON.stringify(wishlistProduct));
 
   const wishlist = (product) => {
+    if (wishlistProduct.find((pd) => pd._id === product._id)) {
+      return;
+    }
+
     setWishlistProduct([...wishlistProduct, product]);
   };
 

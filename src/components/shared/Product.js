@@ -32,6 +32,13 @@ const Product = ({ productInfo }) => {
     setShowModal(true);
   };
 
+  const handleWishList = (product) => {
+    if (!user) {
+      navigate("/login");
+    }
+    wishlist(product);
+  };
+
   return (
     <div className="lg:col-span-1 w-full">
       {showModal && (
@@ -122,7 +129,7 @@ const Product = ({ productInfo }) => {
               <button
                 className="hover:text-slate-700 duration-200 transition-all h-8 w-8 rounded bg-gray-200 flex items-center justify-center"
                 title="Add to wishlist"
-                onClick={() => wishlist(productInfo)}
+                onClick={() => handleWishList(productInfo)}
               >
                 <BsHeart size="16" />
               </button>

@@ -1,10 +1,8 @@
 import axios from "axios";
 const DomainName = "https://unicar-server.vercel.app";
 const dbUser = JSON.parse(localStorage.getItem("userInfo"));
-export const createUserInDb = async (user, provider) => {
+export const createUserInDb = async (user) => {
   try {
-    if (provider) {
-    }
     const { data } = await axios.post(`${DomainName}/api/v1/users/signin`, {
       userName: user.userName,
       userEmail: user.userEmail,
